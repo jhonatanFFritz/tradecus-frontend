@@ -43,9 +43,9 @@ const ToursTable = ({ data, loadData }) => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5); // esto es para la paginacion
   console.log(page);
 
-  const handleChangePage = (event, newPage, loadData) => {
-    // esto es para la paginacion
-    setPage(newPage);
+  const handleChangePage = (event, newPage) => {
+    const newPageIndex = newPage < page && data.length <= (newPage * rowsPerPage) ? newPage - 1 : newPage;
+    setPage(newPageIndex);
   };
 
   const handleChangeRowsPerPage = (event) => {
@@ -75,52 +75,62 @@ const ToursTable = ({ data, loadData }) => {
             <StyledTableCell2>ID</StyledTableCell2>
             <StyledTableCell2>Nombre</StyledTableCell2>
             <StyledTableCell2>Precio</StyledTableCell2>
+            <StyledTableCell2>Precio Promo</StyledTableCell2>
             <StyledTableCell2>Descripción</StyledTableCell2>
             <StyledTableCell2>Estado</StyledTableCell2>
             <StyledTableCell2>Acciones</StyledTableCell2>
           </TableRow>
         </StyledTableHead>
         <TableBody>
-          {data
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((tour, index) => (
-              <StyledTableRow key={index}>
-                <StyledTableCell>{tour.id_tour}</StyledTableCell>
-                <StyledTableCell>{tour.nombre_tour}</StyledTableCell>
-                <StyledTableCell>{tour.precio_tour}</StyledTableCell>
-                <StyledTableCell>{tour.descripcion_tour}</StyledTableCell>
-                <StyledTableCell>{tour.estado_tour}</StyledTableCell>
-                <StyledTableCell>
-                  <div className="flex flex-row gap-1">
-                    <Tooltip title="Detalles" arrow>
-                      <Button variant="contained" color="info">
-                        <VisibilityIcon />
-                      </Button>
-                    </Tooltip>
-                    <Tooltip title="Editar" arrow>
-                      <Button variant="contained" color="success">
-                        <EditIcon />
-                      </Button>
-                    </Tooltip>
-                    <Tooltip title="Eliminar" arrow>
-                      <Button
-                        variant="contained"
-                        color="error"
-                        onClick={() => handleDelete(tour.id_tour)}
-                      >
-                        <DeleteIcon />
-                      </Button>
-                    </Tooltip>
-                  </div>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
+          {Array.isArray(data) && data.length > 0 ? (
+            data
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((tour, index) => (
+                <StyledTableRow key={index}>
+                  <StyledTableCell>{tour.id_tour}</StyledTableCell>
+                  <StyledTableCell>{tour.nombre_tour}</StyledTableCell>
+                  <StyledTableCell>{tour.precio_tour}</StyledTableCell>
+                  <StyledTableCell>{tour.precio_promo_tour}</StyledTableCell>
+                  <StyledTableCell>{tour.descripcion_tour}</StyledTableCell>
+                  <StyledTableCell>{tour.estado_tour}</StyledTableCell>
+                  <StyledTableCell>
+                    <div className="flex flex-row gap-1">
+                      <Tooltip title="Detalles" arrow>
+                        <Button variant="contained" color="info">
+                          <VisibilityIcon />
+                        </Button>
+                      </Tooltip>
+                      <Tooltip title="Editar" arrow>
+                        <Button variant="contained" color="success">
+                          <EditIcon />
+                        </Button>
+                      </Tooltip>
+                      <Tooltip title="Eliminar" arrow>
+                        <Button
+                          variant="contained"
+                          color="error"
+                          onClick={() => handleDelete(tour.id_tour)}
+                        >
+                          <DeleteIcon />
+                        </Button>
+                      </Tooltip>
+                    </div>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))
+          ) : (
+            <TableRow>
+              <StyledTableCell colSpan={6} align="center">
+                No hay tours para mostrar
+              </StyledTableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
       <TablePagination
         rowsPerPageOptions={[5, 10, 20]}
         component="div"
-        count={data.length}
+        count={data.length > 0 ? data.length : 0}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
