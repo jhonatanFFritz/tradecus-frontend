@@ -1,1 +1,1 @@
-# tradecus-frontend
+# tradecus-frontend-dashboard
