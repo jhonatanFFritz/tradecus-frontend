@@ -1,6 +1,8 @@
 import { forwardRef } from "react";
 import Link from "next/link";
 import { HomeIcon, CreditCardIcon, UserIcon } from "@heroicons/react/24/solid";
+import { BsFillCalendarDateFill, BsFillMapFill } from "react-icons/bs";
+
 import { useRouter } from "next/router";
 
 const SideBar = forwardRef(({ showNav }, ref) => {
@@ -11,7 +13,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
       <div className="flex justify-center mt-6 mb-14">
         <picture>
           <img
-            className="w-32 h-auto"
+            className="w-16 h-auto"
             src="/ferox-transparent.png"
             alt="company logo"
           />
@@ -31,14 +33,30 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               <HomeIcon className="h-5 w-5" />
             </div>
             <div>
-              <p>Home</p>
+              <p>Panel Principal</p>
             </div>
           </div>
         </Link>
-        <Link href="/account">
+        <Link href="/bookings">
           <div
             className={`pl-6 py-3 mx-5 rounded text-center cursor-pointer mb-3 flex items-center transition-colors ${
-              router.pathname == "/account"
+              router.pathname == "/bookings"
+                ? "bg-orange-100 text-orange-500"
+                : "text-gray-400 hover:bg-orange-100 hover:text-orange-500"
+            }`}
+          >
+            <div className="mr-2">
+              <BsFillCalendarDateFill className="h-5 w-5" />
+            </div>
+            <div>
+              <p>Reservas</p>
+            </div>
+          </div>
+        </Link>
+        <Link href="/users">
+          <div
+            className={`pl-6 py-3 mx-5 rounded text-center cursor-pointer mb-3 flex items-center transition-colors ${
+              router.pathname == "/users"
                 ? "bg-orange-100 text-orange-500"
                 : "text-gray-400 hover:bg-orange-100 hover:text-orange-500"
             }`}
@@ -47,14 +65,14 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               <UserIcon className="h-5 w-5" />
             </div>
             <div>
-              <p>Account</p>
+              <p>Usuarios</p>
             </div>
           </div>
         </Link>
-        <Link href="/billing">
+        <Link href="/sales">
           <div
             className={`pl-6 py-3 mx-5 rounded text-center cursor-pointer mb-3 flex items-center transition-colors ${
-              router.pathname == "/billing"
+              router.pathname == "/sales"
                 ? "bg-orange-100 text-orange-500"
                 : "text-gray-400 hover:bg-orange-100 hover:text-orange-500"
             }`}
@@ -63,10 +81,27 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               <CreditCardIcon className="h-5 w-5" />
             </div>
             <div>
-              <p>Billing</p>
+              <p>Ventas</p>
             </div>
           </div>
         </Link>
+        <Link href="/tours">
+          <div
+            className={`pl-6 py-3 mx-5 rounded text-center cursor-pointer mb-3 flex items-center transition-colors ${
+              router.pathname == "/tours"
+                ? "bg-orange-100 text-orange-500"
+                : "text-gray-400 hover:bg-orange-100 hover:text-orange-500"
+            }`}
+          >
+            <div className="mr-2">
+              <BsFillMapFill className="h-5 w-5" />
+            </div>
+            <div>
+              <p>Tours</p>
+            </div>
+          </div>
+        </Link>
+        
       </div>
     </div>
   );
