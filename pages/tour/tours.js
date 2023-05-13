@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import ToursTable from "../components/ToursTable";
-import MyButton from "../components/MyButton";
+import ToursTable from "../../components/ToursTable";
+import MyButton from "../../components/MyButton";
 import AddIcon from "@mui/icons-material/Add";
 
 export default function Tours() {

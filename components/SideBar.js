@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { HomeIcon, CreditCardIcon, UserIcon } from "@heroicons/react/24/solid";
 import { BsFillCalendarDateFill, BsFillMapFill } from "react-icons/bs";
@@ -7,6 +7,19 @@ import { useRouter } from "next/router";
 
 const SideBar = forwardRef(({ showNav }, ref) => {
   const router = useRouter();
+
+  const [openSubMenu, setOpenSubMenu] = useState(false);
+  const [activeLink, setActiveLink] = useState(null);
+
+  const handleLinkClick = (index) => {
+    setOpenSubMenu((prevState) => !prevState);
+    setActiveLink(index);
+  };
+
+  const handleOtherLinkClick = () => {
+    setOpenSubMenu(false);
+    setActiveLink(null);
+  };
 
   return (
     <div ref={ref} className="fixed w-56 h-full bg-white shadow-sm">
@@ -85,23 +98,58 @@ const SideBar = forwardRef(({ showNav }, ref) => {
             </div>
           </div>
         </Link>
-        <Link href="/tours">
+
+        <div className="relative">
           <div
-            className={`pl-6 py-3 mx-5 rounded text-center cursor-pointer mb-3 flex items-center transition-colors ${
+            className={` py-3 mx-5 rounded text-center cursor-pointer mb-3 flex items-center transition-colors ${
               router.pathname == "/tours"
                 ? "bg-orange-100 text-orange-500"
                 : "text-gray-400 hover:bg-orange-100 hover:text-orange-500"
             }`}
+            onClick={() => {
+              handleLinkClick(4);
+              handleOtherLinkClick();
+            }}
           >
-            <div className="mr-2">
-              <BsFillMapFill className="h-5 w-5" />
-            </div>
-            <div>
-              <p>Tours</p>
-            </div>
+            <Link href="/tour/tours">
+              <div
+                className={`pl-1 py-3 mx-5 rounded text-center cursor-pointer mb-3 flex items-center transition-colors ${
+                  router.pathname == "/tours"
+                    ? "bg-orange-100 text-orange-500"
+                    : "text-gray-400 hover:bg-orange-100 hover:text-orange-500"
+                }`}
+              >
+                <div className="mr-2">
+                  <BsFillMapFill className="h-5 w-5" />
+                </div>
+                <div>
+                  <p>Tours</p>
+                </div>
+              </div>
+            </Link>
           </div>
-        </Link>
-        
+          {openSubMenu && activeLink === 4 && (
+            <div className="absolute top-full left-0 z-10 w-full bg-white shadow-md border border-gray-200 rounded-b overflow-hidden">
+              <Link href="/sales">
+                <div
+                  className={`pl-10 py-3 flex flex-row mx-5 rounded text-center cursor-pointer transition-colors ${
+                    router.pathname == "/tours"
+                      ? "bg-orange-100 text-orange-500"
+                      : "text-gray-400 hover:bg-orange-100 hover:text-orange-500"
+                  }`}
+                >
+                  <div className="mr-2">
+                    <CreditCardIcon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p>Ventas</p>
+                  </div>
+                </div>
+              </Link>
+              {/*Add other submenu items as needed*/}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
