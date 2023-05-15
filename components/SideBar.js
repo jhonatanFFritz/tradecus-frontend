@@ -111,7 +111,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               handleOtherLinkClick();
             }}
           >
-            <Link href="/tour/tours">
+            <Link href="/tour">
               <div
                 className={`pl-1 py-3 mx-5 rounded text-center cursor-pointer mb-3 flex items-center transition-colors ${
                   router.pathname == "/tours"
