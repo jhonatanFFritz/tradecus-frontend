@@ -34,7 +34,7 @@ export default function Tours() {
           color="success"
           tooltip="Crear nuevo tour"
           icon={<AddIcon />}
-          onClick={() => router.push("/tour/newTour")}
+          onClick={() => router.push("/tour/new/newTour")}
         />
       </div>
     </>

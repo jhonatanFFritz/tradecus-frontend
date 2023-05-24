@@ -1,14 +1,48 @@
-export default function Home() {
+import { getSession, signOut } from "next-auth/react";
+
+function LoginPage({ session }) {
   return (
     <>
-      <p className="text-gray-700 text-3xl mb-16 font-bold">Dashboard</p>
+      <p className="text-gray-700 text-3xl mb-16 font-bold">Login Page</p>
 
-      <div className="grid lg:grid-cols-3 gap-5 mb-16">
-        <div className="rounded bg-white h-40 shadow-sm"></div>
-        <div className="rounded bg-white h-40 shadow-sm"></div>
-        <div className="rounded bg-white h-40 shadow-sm"></div>
+      <div>
+        {session ? (
+          <div>
+            <h1>{session.user.name}</h1>
+            <p>{session.user.email} </p>
+            <img src={session.user.image} alt="" />
+          </div>
+        ) : (
+          <p>Esqueleton</p>
+        )}
       </div>
-      <div className="grid col-1 bg-white h-96 shadow-sm"></div>
+      <button
+        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mt-2 rounded"
+        onClick={() => signOut()}
+      >
+        Cerrar Sesión
+      </button>
     </>
   );
 }
+// esto se ejecuta primero y si hayn error no devuelve la interfaz
+export const getServerSideProps = async (context) => {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session: session,
+    },
+  };
+};
+
+export default LoginPage;

@@ -2,6 +2,7 @@ import { useState, useEffect, Fragment } from "react";
 import SideBar from "./SideBar";
 import TopBar from "./TopBar";
 import { Transition } from "@headlessui/react";
+import {getSession} from "next-auth/react";
 
 export default function Layout({ children }) {
   const [showNav, setShowNav] = useState(true);
@@ -52,3 +53,4 @@ export default function Layout({ children }) {
     </>
   );
 }
+

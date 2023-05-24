@@ -10,6 +10,7 @@ import { BellIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { Menu, Transition, Popover } from "@headlessui/react";
 import Link from "next/link";
 
+
 export default function TopBar({ showNav, setShowNav }) {
   return (
     <div

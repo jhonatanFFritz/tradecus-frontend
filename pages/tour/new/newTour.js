@@ -1,4 +1,4 @@
-import NewTourForm from '../../components/tours/NewTourForm';
+import NewTourForm from '../../../components/tours/NewTourForm';
 export default function NewTour() {
   return (
     <>
