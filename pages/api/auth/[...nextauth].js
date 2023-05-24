@@ -1,11 +1,10 @@
-import NextAuth from "next-auth"
-import GithubProvider from "next-auth/providers/github"
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
-import clientPromise from "../../../lib/mongodb"
+import NextAuth from "next-auth";
+import GithubProvider from "next-auth/providers/github";
+// import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+// import clientPromise from "../../../lib/mongodb";
 
-export const authOptions = {
-  adapter: MongoDBAdapter(clientPromise),
-  // Configurar uno o más proveedores de autenticación
+export default NextAuth({
+  // adapter: MongoDBAdapter(clientPromise),
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID,
@@ -13,6 +12,4 @@ export const authOptions = {
     }),
     // ...agregue más proveedores aquí
   ],
-}
-
-export default NextAuth(authOptions)
+});
